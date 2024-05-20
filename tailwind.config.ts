@@ -19,6 +19,10 @@ const config = {
     },
     extend: {
       colors: {
+        "custom-success-dark":"hsl(var(--custom-success-dark))",
+        "custom-success":"hsl(var(--custom-success))",
+        "custom-foreground":"hsl(var(--custom-foreground))",
+        "custom-background":"hsl(var(--custom-background))",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

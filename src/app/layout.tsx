@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import NavBar from "@/components/NavBar";
 
-const inter = Inter({ subsets: ["latin"] });
+const poppins = Poppins({
+    subsets:["latin"],
+    weight: ["400", "500", "600", "700"]
+});
 
 export const metadata: Metadata = {
     title: "Mindscape",
@@ -16,8 +20,8 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en">
-            <body className={inter.className}>
+        <html lang="en" suppressHydrationWarning>
+            <body className={poppins.className}>
                 <ThemeProvider
                     attribute="class"
                     defaultTheme="system"
