@@ -8,18 +8,16 @@ import { History, Star } from "lucide-react";
 import { useMemo } from "react";
 import UserButton from "./shared/UserButton";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
-import Container from "./shared/Container";
+
 
 export default function NavBar() {
     const pathname = usePathname();
-    const isSignInPage = useMemo(()=>pathname==="/auth/signin",[pathname]);
+    const isSignInPage = useMemo(() => pathname === "/auth/signin", [pathname]);
     const user = useCurrentUser();
     return (
-        <nav className="shadow">
-            <Container className="flex items-center p-4">
-                {/* LOGO */}
+        <nav className="sticky top-0 shadow bg-background/95 border-b border-border/40 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+            <div className="container max-w-screen-xl flex items-center p-4">
                 <Logo size="xl" weight="semibold" />
-
                 <div className="flex-1 flex items-center justify-end gap-x-4">
                     {!isSignInPage ? (
                         <div className="flex items-center gap-x-4">
@@ -31,16 +29,16 @@ export default function NavBar() {
                                 <Star className="h-5 w-5" />
                                 Favorites
                             </NavLink>
-                            <UserButton userName={user?.name??"anonymous"} email={user?.email??"anonymous@gmail.com"} displayImage={user?.image??""}/>
+                            <UserButton
+                                userName={user?.name ?? ""}
+                                email={user?.email ?? ""}
+                                displayImage={user?.image ?? ""}
+                            />
                         </div>
-                    ) : (
-                        <SignInButton />
-                    )}
-
-                    {/* THEME TOGGLE BUTTON */}
+                    ):null}
                     <ThemeToggle />
                 </div>
-            </Container>
+            </div>
         </nav>
     );
 }

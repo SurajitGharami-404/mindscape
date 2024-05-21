@@ -81,6 +81,6 @@
         @apply border-border;
     }
     body {
-        @apply bg-custom-background text-custom-foreground min-h-screen;
+        @apply bg-background text-foreground min-h-screen;
     }
 }
