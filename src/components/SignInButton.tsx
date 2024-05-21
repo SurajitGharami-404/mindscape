@@ -1,11 +1,14 @@
 "use client";
-import { signInWithGoogle } from "@/app/(sites)/signin/actions";
+import { signIn } from "next-auth/react";
 import { Button } from "./ui/button";
 import { FaGoogle } from "react-icons/fa6";
+import { DEFAULT_SIGNIN_REDIRECT } from "@/routes";
 
 export default function SignInButton() {
-    const handleSignin = async () => {
-        await signInWithGoogle();
+    const handleSignin = () => {
+        signIn("google",{
+            callbackUrl:DEFAULT_SIGNIN_REDIRECT
+        })
     };
 
     return (

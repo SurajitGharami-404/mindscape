@@ -37,7 +37,7 @@ model Session {
   @@map("sessions")
 }
 
-enum Role {
+enum UserRole {
   User
   Admin
 }
@@ -48,7 +48,7 @@ model User {
   email         String?   @unique
   emailVerified DateTime? @map("email_verified")
   image         String?
-  role          Role      @default(User)
+  role          UserRole      @default(User)
   accounts      Account[]
   sessions      Session[]
 

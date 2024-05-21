@@ -6,13 +6,17 @@ import Logo from "./shared/Logo";
 import NavLink from "./shared/NavLink";
 import { History, Star } from "lucide-react";
 import { useMemo } from "react";
+import UserButton from "./shared/UserButton";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
+import Container from "./shared/Container";
 
 export default function NavBar() {
     const pathname = usePathname();
-    const isSignInPage = useMemo(()=>pathname==="/signin",[pathname]);
+    const isSignInPage = useMemo(()=>pathname==="/auth/signin",[pathname]);
+    const user = useCurrentUser();
     return (
-        <nav>
-            <div className="max-w-7xl mx-auto flex items-center p-4">
+        <nav className="shadow">
+            <Container className="flex items-center p-4">
                 {/* LOGO */}
                 <Logo size="xl" weight="semibold" />
 
@@ -27,6 +31,7 @@ export default function NavBar() {
                                 <Star className="h-5 w-5" />
                                 Favorites
                             </NavLink>
+                            <UserButton userName={user?.name??"anonymous"} email={user?.email??"anonymous@gmail.com"} displayImage={user?.image??""}/>
                         </div>
                     ) : (
                         <SignInButton />
@@ -35,7 +40,7 @@ export default function NavBar() {
                     {/* THEME TOGGLE BUTTON */}
                     <ThemeToggle />
                 </div>
-            </div>
+            </Container>
         </nav>
     );
 }

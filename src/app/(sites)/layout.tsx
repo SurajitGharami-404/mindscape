@@ -1,10 +1,11 @@
 import NavBar from "@/components/NavBar";
+import Container from "@/components/shared/Container";
 
 export default function SiteLayout({
     children,
 }: Readonly<{ children: React.ReactNode }>) {
     return (
-        <main className="min-h-screen max-w-7xl mx-auto flex flex-col flex-nowrap">
+        <main className="min-h-screen flex flex-col flex-nowrap">
             <NavBar />
             {children}
         </main>
