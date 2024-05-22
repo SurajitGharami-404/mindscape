@@ -1,5 +1,4 @@
 import NavBar from "@/components/NavBar";
-import Container from "@/components/shared/Container";
 
 export default function SiteLayout({
     children,

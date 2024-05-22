@@ -12,8 +12,8 @@ interface Props {
 }
 
 const UserButton: FC<Props> = ({userName, displayImage, email}) => {
-    const handleSignOut = ()=>{
-        signOut()
+    function handleSignOut(){
+      signOut()
     }
   return (
     <DropdownMenu>
@@ -21,7 +21,7 @@ const UserButton: FC<Props> = ({userName, displayImage, email}) => {
         <Button variant="ghost" className="relative h-8 w-8 rounded-full">
           <Avatar className="h-8 w-8">
             <AvatarImage src={displayImage} alt={userName} />
-            <AvatarFallback>{userName.at(0)}</AvatarFallback>
+            <AvatarFallback className='bg-violet-300 dark:bg-violet-600'>{userName.at(0)}</AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>

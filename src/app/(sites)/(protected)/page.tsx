@@ -1,7 +1,3 @@
-
-import Container from "@/components/shared/Container";
-
-
 export default async function Home() {
     return (
         <section className="conatiner max-w-screen-2xl flex-1 flex flex-col items-center justify-center gap-y-8 px-4">

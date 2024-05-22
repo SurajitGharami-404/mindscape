@@ -8,6 +8,7 @@ import { History, Star } from "lucide-react";
 import { useMemo } from "react";
 import UserButton from "./shared/UserButton";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { Separator } from "./ui/separator";
 
 
 export default function NavBar() {
@@ -39,6 +40,7 @@ export default function NavBar() {
                     <ThemeToggle />
                 </div>
             </div>
+            <Separator/>
         </nav>
     );
 }
