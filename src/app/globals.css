@@ -81,6 +81,6 @@
         @apply border-border;
     }
     body {
-        @apply bg-secondary text-foreground font-poppins min-h-screen;
+        @apply bg-background/10 text-foreground font-poppins min-h-screen;
     }
 }

@@ -1,22 +1,71 @@
+"use client";
+import { Video } from "@prisma/client";
+import VideoCard from "./shared/VideoCard";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { getVideos } from "@/actions/videos";
+import LoadingSkeleton from "./LoadingSkeleton";
+import { Alert, AlertDescription, AlertTitle } from "./ui/alert";
+import { Terminal } from "lucide-react";
 
-import { Video } from '@prisma/client';
-import { type FC } from 'react'
-import VideoCard from './shared/VideoCard';
+const VideoCards = () => {
+    const searchParams = useSearchParams();
+    const [videos, setVideos] = useState<Video[]>([]);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
 
-interface Props {
-   videos: Video[]
-}
+    useEffect(() => {
+        async function fetchVideos() {
+            const language = searchParams.get("language") || "all";
+            const genre = searchParams.get("genre") || "all";
 
-const VideoCards: FC<Props> = ({videos}) => {
-  return (
-    <div className='grid grid-cols-3 gap-5'>
-        {
-            videos.map((video)=>(
-                <VideoCard key={video.id} video={video}/>
-            ))
+            let res: ActionResponse<Video[]>;
+
+            if (language && genre) {
+                res = await getVideos({
+                    language,
+                    genre,
+                });
+
+                if (res.success && res.result) {
+                    setIsLoading(false);
+                    setVideos(res.result);
+                } else {
+                    toast.error(res.error);
+                }
+            }
         }
-    </div>
-  )
-}
+        fetchVideos();
+    }, [searchParams]);
+
+    return (
+        <div className="flex-1 grid grid-cols-3 gap-x-5 gap-y-16">
+            {isLoading ? (
+                <>
+                    <LoadingSkeleton />
+                    <LoadingSkeleton />
+                    <LoadingSkeleton />
+                    <LoadingSkeleton />
+                    <LoadingSkeleton />
+                    <LoadingSkeleton />
+                </>
+            ) : !!videos && videos.length > 0 ? (
+                videos.map((video) => (
+                    <VideoCard video={video} key={video.id} />
+                ))
+            ) : (
+                <div className="col-span-3 h-full grid place-items-center">
+                    <Alert className="max-h-[125px] max-w-[360px]">
+                        <Terminal className="h-4 w-4" />
+                        <AlertTitle>Not found!</AlertTitle>
+                        <AlertDescription>
+                            Sorry no videos found to watch
+                        </AlertDescription>
+                    </Alert>
+                </div>
+            )}
+        </div>
+    );
+};
 
 export default VideoCards;
