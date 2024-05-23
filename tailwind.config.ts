@@ -57,6 +57,10 @@ const config = {
           foreground: "hsl(var(--card-foreground))",
         },
       },
+      fontFamily:{
+        poppins:"var(--font-poppins)",
+        noto_sans: "var(--font-noto_sans)",
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",

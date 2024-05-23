@@ -1,12 +1,18 @@
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
+import { Poppins, Noto_Sans } from "next/font/google";
 import "./globals.css";
 import Provider from "@/components/providers/Provider";
 
 
 const poppins = Poppins({
     subsets: ["latin"],
-    weight: ["400", "500", "600", "700"],
+    weight: ["400","500","600","700"],
+    variable:"--font-poppins",
+});
+const notoSans = Noto_Sans({
+    subsets: ["latin"],
+    weight: ["400","500","600","700"],
+    variable:"--font-noto_sans",
 });
 
 export const metadata: Metadata = {
@@ -21,7 +27,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" suppressHydrationWarning>
-            <body className={poppins.className}>
+            <body className={`${poppins.variable} ${notoSans.variable}`}>
                 <Provider>
                         {children}
                 </Provider>

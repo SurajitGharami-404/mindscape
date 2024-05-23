@@ -1,47 +1,21 @@
-"use client";
-import { usePathname } from "next/navigation";
-import SignInButton from "./SignInButton";
+
+import { getServerSideUser } from "@/utils/getServerSideUser";
 import { ThemeToggle } from "./ThemeToggle";
 import Logo from "./shared/Logo";
 import NavLink from "./shared/NavLink";
 import { History, Star } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
 import UserButton from "./shared/UserButton";
-import { useCurrentUser } from "@/hooks/useCurrentUser";
-import { Separator } from "./ui/separator";
 
-type user = {
-    email:string;
-    name:string;
-    image:string;
-}
-
-export default function NavBar() {
-    const [user,setUser] = useState<user>({
-        email:"",
-        name:"",
-        image:""
-    })
-    const pathname = usePathname();
-    const isSignInPage = useMemo(() => pathname === "/auth/signin", [pathname]);
-    const currentUser = useCurrentUser();
-
-    useEffect(()=>{
-        if(!!currentUser){
-            setUser({
-                email:currentUser?.email!,
-                name:currentUser?.name!,
-                image:currentUser?.image!
-            })
-        }
-    },[currentUser]);
+export default async function NavBar() {
+    
+    const user = await getServerSideUser();
 
     return (
-        <nav className="sticky top-0 shadow bg-background/95 border-b border-border/40 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-            <div className="container max-w-screen-xl flex items-center p-4">
+        <nav className="sticky top-0 bg-background/95 shadow border-b border-border/40 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+            <div className="container flex items-center p-4">
                 <Logo size="xl" weight="semibold" />
                 <div className="flex-1 flex items-center justify-end gap-x-4">
-                    {!isSignInPage ? (
+                    {!!user ? (
                         <div className="flex items-center gap-x-4">
                             <NavLink href="/history">
                                 <History className="h-5 w-5" />
@@ -52,16 +26,15 @@ export default function NavBar() {
                                 Favorites
                             </NavLink>
                             <UserButton
-                                userName={user?.name}
-                                email={user?.email}
-                                displayImage={user?.image}
+                                userName={user?.name ?? ""}
+                                email={user?.email ?? ""}
+                                displayImage={user?.image ?? ""}
                             />
                         </div>
                     ):null}
                     <ThemeToggle />
                 </div>
             </div>
-            <Separator/>
         </nav>
     );
 }
